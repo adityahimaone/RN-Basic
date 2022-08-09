@@ -1,7 +1,42 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button, Alert, TextInput } from "react-native";
 
 export default function App() {
+  const [userInput, setUserInput] = useState("");
+  const [courseGoals, setCourseGoals] = useState([
+    {
+      id: 1,
+      value: "Learn React Native",
+    },
+    {
+      id: 2,
+      value: "Learn React",
+    },
+    {
+      id: 3,
+      value: "Learn React Hooks",
+    },
+  ]);
+
+  const goalInputHandler = (enteredText) => {
+    setUserInput(enteredText);
+  };
+
+  const addGoalHandler = () => {
+    if (userInput.length > 0) {
+      setCourseGoals((currentGoals) => [
+        ...currentGoals,
+        { id: Math.random(), value: userInput },
+      ]);
+      Alert.alert("Goal Added", "Your goal is added", [
+        { text: "Okay", onPress: () => console.log("Okay Pressed") },
+      ]);
+    } else {
+      Alert.alert("Please enter a valid goal");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My App</Text>
@@ -13,16 +48,24 @@ export default function App() {
       </View>
       <View style={styles.goalContainer}>
         <View style={styles.inputContainer}>
-          <TextInput style={styles.textInput} placeholder="Your course goal!" />
-          <Button color="#F65A83" title="Add Goal" />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={goalInputHandler}
+            placeholder="Your course goal!"
+          />
+          <Button color="#F65A83" title="Add Goal" onPress={addGoalHandler} />
         </View>
         <View style={styles.listGoalContainer}>
           <View style={{ alignSelf: "stretch" }}>
             <Text>List of Goals...</Text>
           </View>
-          <Text>1. Have a lot of money</Text>
-          <Text>2. Buy a new House</Text>
-          <Text>2. Have a Car</Text>
+          {courseGoals.map((item, index) => (
+            <View key={item.id} style={styles.listItem}>
+              <Text>
+                {index + 1}. {item.value}
+              </Text>
+            </View>
+          ))}
         </View>
         <View
           style={{
@@ -101,10 +144,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flex: 1,
+    // height: 30,
+    minHeight: 40,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    // alignContent: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#FF87B2",
   },
@@ -126,7 +172,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   listGoalContainer: {
-    flex: 4,
+    flex: 9,
     flexDirection: "column",
     alignItems: "center",
   },
