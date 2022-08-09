@@ -11,15 +11,34 @@ export default function App() {
         </Text>
         <Text style={styles.descTips}>Learning by doing!</Text>
       </View>
-      <View style={styles.inputContainer}>
-        <View>
-          <TextInput style={styles.input} placeholder="Your course goal!" />
+      <View style={styles.goalContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.textInput} placeholder="Your course goal!" />
           <Button color="#F65A83" title="Add Goal" />
         </View>
-        <View>
-          <Text>List of Goals...</Text>
+        <View style={styles.listGoalContainer}>
+          <View style={{ alignSelf: "stretch" }}>
+            <Text>List of Goals...</Text>
+          </View>
+          <Text>1. Have a lot of money</Text>
+          <Text>2. Buy a new House</Text>
+          <Text>2. Have a Car</Text>
+        </View>
+        <View
+          style={{
+            width: "100%",
+            height: 100,
+            flexDirection: "row",
+            alignItems: "stretch", // align items in the row vertically
+            justifyContent: "space-around", // justify content in the row horizontally
+          }}
+        >
+          <View style={{ flex: 1, backgroundColor: "red" }}></View>
+          <View style={{ flex: 2, backgroundColor: "blue" }}></View>
+          <View style={{ flex: 1, backgroundColor: "green" }}></View>
         </View>
       </View>
+
       <Button
         title="Press me"
         color="#FF87B2"
@@ -68,7 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     shadowOffset: { width: 1, height: 2 },
   },
-  inputContainer: {
+  goalContainer: {
     width: "90%",
     padding: 8,
     marginHorizontal: 12,
@@ -77,13 +96,19 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     shadowOffset: { width: 1, height: 2 },
   },
-  input: {
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  textInput: {
     borderWidth: 2,
     borderRadius: 8,
-    borderColor: "#FFF8BC",
+    borderColor: "#F65A83",
     color: "#F65A83",
     padding: 5,
     marginVertical: 8,
+    width: "70%",
   },
   buttonInput: {
     borderWidth: 2,
@@ -92,5 +117,9 @@ const styles = StyleSheet.create({
     color: "#F65A83",
     padding: 5,
     marginVertical: 8,
+  },
+  listGoalContainer: {
+    flexDirection: "column",
+    alignItems: "center",
   },
 });
