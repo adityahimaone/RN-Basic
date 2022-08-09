@@ -27,7 +27,7 @@ export default function App() {
         <View
           style={{
             width: "100%",
-            height: 100,
+            height: 50,
             flexDirection: "row",
             alignItems: "stretch", // align items in the row vertically
             justifyContent: "space-around", // justify content in the row horizontally
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2f2",
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: 12,
+    paddingTop: 20,
+    paddingBottom: 10,
   },
   title: {
     margin: 12,
@@ -79,8 +82,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   descContainer: {
+    width: "100%",
     padding: 8,
-    marginHorizontal: 12,
     marginVertical: 8,
     color: "#F65A83",
     backgroundColor: "#F65A83",
@@ -88,18 +91,22 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 2 },
   },
   goalContainer: {
-    width: "90%",
+    flex: 1,
+    width: "100%",
     padding: 8,
-    marginHorizontal: 12,
     marginVertical: 8,
     backgroundColor: "#FFF8BC",
     borderRadius: 12,
     shadowOffset: { width: 1, height: 2 },
   },
   inputContainer: {
+    flex: 1,
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#FF87B2",
   },
   textInput: {
     borderWidth: 2,
@@ -119,6 +126,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   listGoalContainer: {
+    flex: 4,
     flexDirection: "column",
     alignItems: "center",
   },
