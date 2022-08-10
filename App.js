@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, Alert, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  TextInput,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
   const [userInput, setUserInput] = useState("");
@@ -56,16 +64,20 @@ export default function App() {
           <Button color="#F65A83" title="Add Goal" onPress={addGoalHandler} />
         </View>
         <View style={styles.listGoalContainer}>
-          <View style={{ alignSelf: "stretch" }}>
+          <View style={{ alignSelf: "stretch", marginVertical: 12 }}>
             <Text>List of Goals...</Text>
           </View>
-          {courseGoals.map((item, index) => (
-            <View key={item.id} style={styles.listItem}>
-              <Text>
-                {index + 1}. {item.value}
-              </Text>
-            </View>
-          ))}
+          <View style={{ width: "100%" }}>
+            <ScrollView alwaysBounceVertical={false}>
+              {courseGoals.map((item, index) => (
+                <View key={item.id} style={styles.listItem}>
+                  <Text style={styles.listText}>
+                    {index + 1}. {item.value}
+                  </Text>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
         </View>
         <View
           style={{
@@ -175,5 +187,15 @@ const styles = StyleSheet.create({
     flex: 9,
     flexDirection: "column",
     alignItems: "center",
+  },
+  listItem: {
+    width: "100%",
+    marginVertical: 8,
+    backgroundColor: "#F65A83",
+    borderRadius: 12,
+    padding: 10,
+  },
+  listText: {
+    color: "white",
   },
 });
