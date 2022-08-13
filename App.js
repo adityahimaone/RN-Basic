@@ -8,6 +8,7 @@ import {
   Alert,
   TextInput,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 export default function App() {
@@ -67,8 +68,9 @@ export default function App() {
           <View style={{ alignSelf: "stretch", marginVertical: 12 }}>
             <Text>List of Goals...</Text>
           </View>
-          <View style={{ width: "100%" }}>
-            <ScrollView alwaysBounceVertical={false}>
+          <View style={{ width: "100%", height: "90%" }}>
+            {/* Scrolll View */}
+            {/* <ScrollView alwaysBounceVertical={false}>
               {courseGoals.map((item, index) => (
                 <View key={item.id} style={styles.listItem}>
                   <Text style={styles.listText}>
@@ -76,10 +78,29 @@ export default function App() {
                   </Text>
                 </View>
               ))}
-            </ScrollView>
+            </ScrollView> */}
+
+            {/* FlatList for Lazy Load data */}
+            <FlatList
+              // data from the state
+              data={courseGoals}
+              // render item for each item in the list
+              renderItem={(itemData) => (
+                <View style={styles.listItem}>
+                  <Text style={styles.listText}>
+                    {itemData.index + 1}. {itemData.item.value}
+                  </Text>
+                </View>
+              )}
+              //  generate key for each item in the list
+              keyExtractor={(item, index) => item.id}
+              alwaysBounceVertical={false}
+            />
           </View>
         </View>
-        <View
+
+        {/* Flex  */}
+        {/* <View
           style={{
             width: "100%",
             height: 50,
@@ -91,7 +112,7 @@ export default function App() {
           <View style={{ flex: 1, backgroundColor: "red" }}></View>
           <View style={{ flex: 2, backgroundColor: "blue" }}></View>
           <View style={{ flex: 1, backgroundColor: "green" }}></View>
-        </View>
+        </View> */}
       </View>
 
       <Button
