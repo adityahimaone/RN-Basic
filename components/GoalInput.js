@@ -1,6 +1,6 @@
 import { StyleSheet, View, Button, TextInput } from "react-native";
 
-function GoalInput({ goalInputHandler, addGoalHandler }) {
+function GoalInput({ goalInputHandler, onAddGoal }) {
   return (
     <View style={styles.inputContainer}>
       <TextInput
@@ -8,7 +8,7 @@ function GoalInput({ goalInputHandler, addGoalHandler }) {
         onChangeText={goalInputHandler}
         placeholder="Your course goal!"
       />
-      <Button color="#F65A83" title="Add Goal" onPress={addGoalHandler} />
+      <Button color="#F65A83" title="Add Goal" onPress={onAddGoal} />
     </View>
   );
 }

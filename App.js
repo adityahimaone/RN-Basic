@@ -43,6 +43,12 @@ export default function App() {
     }
   };
 
+  const deleteGoalHandler = (goalId) => {
+    setCourseGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== goalId);
+    });
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -51,7 +57,7 @@ export default function App() {
         {/* Input */}
         <GoalInput
           goalInputHandler={goalInputHandler}
-          addGoalHandler={addGoalHandler}
+          onAddGoal={addGoalHandler}
         />
         <View style={styles.listGoalContainer}>
           <View style={{ alignSelf: "stretch", marginVertical: 12 }}>
@@ -62,7 +68,10 @@ export default function App() {
             {/* <GoalItemScrollView courseGoals={courseGoals} /> */}
 
             {/* FlatList for Lazy Load data */}
-            <GoalItemFlatList courseGoals={courseGoals} />
+            <GoalItemFlatList
+              courseGoals={courseGoals}
+              onDeleteGoal={deleteGoalHandler}
+            />
           </View>
         </View>
       </View>

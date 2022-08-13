@@ -1,12 +1,18 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
 
-function GoalItemFlatList({ courseGoals }) {
+function GoalItemFlatList({ courseGoals, onDeleteGoal }) {
   const RenderedItem = (itemData) => {
     return (
       <View style={styles.listItem}>
-        <Text style={styles.listText}>
-          {itemData.index + 1} - {itemData.item.value}
-        </Text>
+        <Pressable
+          onPress={() => onDeleteGoal(itemData.item.id)}
+          android_ripple={styles.ripleEffect}
+          style={({ pressed }) => pressed && styles.pressedItem}
+        >
+          <Text style={styles.listText}>
+            {itemData.index + 1} - {itemData.item.value}
+          </Text>
+        </Pressable>
       </View>
     );
   };
@@ -30,10 +36,19 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     backgroundColor: "#F65A83",
     borderRadius: 12,
-    padding: 10,
   },
   listText: {
+    padding: 10,
     color: "white",
+  },
+  pressedItem: {
+    opacity: 0.5,
+  },
+  ripleEffect: {
+    // radius: 12,00
+    borderless: true,
+    foreground: false,
+    color: "#AF7AB3",
   },
 });
 
