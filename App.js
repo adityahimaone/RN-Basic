@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 12,
-    paddingTop: 20,
+    paddingTop: 25,
     paddingBottom: 10,
   },
   goalContainer: {

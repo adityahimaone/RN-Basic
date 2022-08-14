@@ -32,6 +32,7 @@ function GoalInput({ goalInputHandler, onAddGoal, modalVisible, onCloseModal }) 
 
 const styles = StyleSheet.create({
   inputContainer: {
+    backgroundColor: "#f2f2",
     alignItems: "center",
     borderBottomColor: "#FF87B2",
     borderBottomWidth: 1,
