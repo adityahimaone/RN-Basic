@@ -1,15 +1,32 @@
-import { StyleSheet, View, Button, TextInput } from "react-native";
+import { StyleSheet, View, Button, TextInput, Modal, Pressable, Text } from "react-native";
 
-function GoalInput({ goalInputHandler, onAddGoal }) {
+function GoalInput({ goalInputHandler, onAddGoal, modalVisible, onCloseModal }) {
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={goalInputHandler}
-        placeholder="Your course goal!"
-      />
-      <Button color="#F65A83" title="Add Goal" onPress={onAddGoal} />
-    </View>
+    <Modal visible={modalVisible} animationType="slide">
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={goalInputHandler}
+          placeholder="Your course goal!"
+        />
+        <View style={styles.buttonGroupContainer}>
+          <Pressable
+            android_ripple={styles.ripleEffect}
+            style={styles.buttonSubmit}
+            onPress={onAddGoal}
+          >
+            <Text style={styles.buttonText}>Add Goal</Text>
+          </Pressable>
+          <Pressable
+            android_ripple={styles.ripleEffect}
+            style={styles.buttonCancel}
+            onPress={onCloseModal}
+          >
+            <Text style={styles.buttonText}>Cancel</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
   );
 }
 
@@ -19,11 +36,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "#FF87B2",
     borderBottomWidth: 1,
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    justifyContent: "center",
     // height: 30,
     minHeight: 40,
     width: "100%",
+    paddingHorizontal: 30,
     // alignContent: "center",
   },
   textInput: {
@@ -33,7 +51,46 @@ const styles = StyleSheet.create({
     color: "#F65A83",
     marginVertical: 8,
     padding: 5,
-    width: "70%",
+    width: "100%",
+  },
+  buttonGroupContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+  },
+  buttonSubmit: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "blue",
+    marginEnd: 8,
+  },
+  buttonCancel: {
+    marginStart: 8,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "red",
+  },
+  buttonText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+  ripleEffect: {
+    borderless: false,
+    foreground: false,
+    color: "#AF7AB3",
   },
 });
 

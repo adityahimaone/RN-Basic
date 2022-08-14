@@ -1,29 +1,39 @@
 import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Alert, TouchableOpacity } from "react-native";
 import Header from "./components/Header";
 import GoalInput from "./components/GoalInput";
 import GoalItemScrollView from "./components/GoalItemScrollView";
 import GoalItemFlatList from "./components/GoalItemFlatList";
 import FlexItem from "./components/FlexItem";
 
-export default function App() {
-  const [userInput, setUserInput] = useState("");
+const initialState = [
+  {
+    id: 1,
+    value: "Learn React Native",
+  },
+  {
+    id: 2,
+    value: "Learn React",
+  },
+  {
+    id: 3,
+    value: "Learn React Hooks",
+  },
+];
 
-  const [courseGoals, setCourseGoals] = useState([
-    {
-      id: 1,
-      value: "Learn React Native",
-    },
-    {
-      id: 2,
-      value: "Learn React",
-    },
-    {
-      id: 3,
-      value: "Learn React Hooks",
-    },
-  ]);
+export default function App() {
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [courseGoals, setCourseGoals] = useState(initialState);
+
+  const showModalHandler = () => {
+    setModalIsVisible(true);
+  };
+
+  const cancelModalHandler = () => {
+    setModalIsVisible(false);
+  };
 
   const goalInputHandler = (enteredText) => {
     setUserInput(enteredText);
@@ -31,13 +41,12 @@ export default function App() {
 
   const addGoalHandler = () => {
     if (userInput.length > 0) {
-      setCourseGoals((currentGoals) => [
-        ...currentGoals,
-        { id: Math.random(), value: userInput },
-      ]);
+      setCourseGoals((currentGoals) => [...currentGoals, { id: Math.random(), value: userInput }]);
       Alert.alert("Goal Added", "Your goal is added", [
         { text: "Okay", onPress: () => console.log("Okay Pressed") },
       ]);
+      setUserInput("");
+      cancelModalHandler();
     } else {
       Alert.alert("Please enter a valid goal");
     }
@@ -55,9 +64,14 @@ export default function App() {
       <Header />
       <View style={styles.goalContainer}>
         {/* Input */}
+        <TouchableOpacity title="Add Goal" onPress={showModalHandler} style={styles.btnGoal}>
+          <Text style={styles.btnGoalText}>Add Goal</Text>
+        </TouchableOpacity>
         <GoalInput
           goalInputHandler={goalInputHandler}
           onAddGoal={addGoalHandler}
+          modalVisible={modalIsVisible}
+          onCloseModal={cancelModalHandler}
         />
         <View style={styles.listGoalContainer}>
           <View style={{ alignSelf: "stretch", marginVertical: 12 }}>
@@ -68,10 +82,7 @@ export default function App() {
             {/* <GoalItemScrollView courseGoals={courseGoals} /> */}
 
             {/* FlatList for Lazy Load data */}
-            <GoalItemFlatList
-              courseGoals={courseGoals}
-              onDeleteGoal={deleteGoalHandler}
-            />
+            <GoalItemFlatList courseGoals={courseGoals} onDeleteGoal={deleteGoalHandler} />
           </View>
         </View>
       </View>
@@ -92,7 +103,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 10,
   },
-
   goalContainer: {
     flex: 1,
     width: "100%",
@@ -106,5 +116,18 @@ const styles = StyleSheet.create({
     flex: 9,
     flexDirection: "column",
     alignItems: "center",
+  },
+  btnGoal: {
+    backgroundColor: "#F65A83",
+    padding: 12,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#fff",
+  },
+  btnGoalText: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
