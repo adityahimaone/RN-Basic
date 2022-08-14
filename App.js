@@ -60,6 +60,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
       {/* Header */}
       <Header />
       <View style={styles.goalContainer}>
@@ -87,8 +88,7 @@ export default function App() {
         </View>
       </View>
       {/* Flex Item */}
-      <FlexItem />
-      <StatusBar style="auto" />
+      {/* <FlexItem /> */}
     </View>
   );
 }
